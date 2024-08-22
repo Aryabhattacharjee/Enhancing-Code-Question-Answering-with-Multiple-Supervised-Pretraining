@@ -55,6 +55,10 @@ Input code is limited to a maximum of 450 tokens.
 Partial description is Limited to a maximum of 50 tokens.  
 Generated description is limited to a maximum of 30 tokens.  
 The model is trained to generate the remaining part of a description when provided with both the code and a partial description, helping it learn to complete descriptions based on partial information.  
+![image](https://github.com/user-attachments/assets/65157ef7-f7eb-49b5-b332-23b43d810d83)
+
+![image](https://github.com/user-attachments/assets/3a2320d1-f0e2-4d3c-99c5-2155865be883)
+
 
 Training Procedure:  
 The training setup mirrors the code-to-description task, but with different input and output token limits.  
