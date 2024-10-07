@@ -153,7 +153,7 @@ def processed_write(input_file,output_file): # takes input file of java code in 
             file2.write("\n")
 
 
-def string_cut(line):
+def string_cut(line): # Cut the line at a random position
     remain_ratio=random.uniform(.5,.7)
     words=line.count(" ")
     words_to_remain=int(words*remain_ratio)+1
@@ -168,7 +168,7 @@ def string_cut(line):
 
 
 
-def fit_in_shape(code: str, comment: str,tokenizer, code_length=383, comment_length=127):
+def fit_in_shape(code: str, comment: str,tokenizer, code_length=382, comment_length=126): # Fit code and comment into the specified shape
     max_length=code_length+comment_length
     # Tokenize the code and comment
     tokenized_code = tokenizer.tokenize(code)
@@ -200,7 +200,7 @@ def fit_in_shape(code: str, comment: str,tokenizer, code_length=383, comment_len
 
 
  
-def remove_url(text, replacement_text=""):
+def remove_url(text, replacement_text=""): # Remove URLs from text
     words = text.split()
     for i, word in enumerate(words):
         parsed_url = urlparse(word)
@@ -209,7 +209,7 @@ def remove_url(text, replacement_text=""):
     return ' '.join(words)
 
 
-def truncate_string(text, max_length, tokenizer):
+def truncate_string(text, max_length, tokenizer): # Truncate text to max_length tokens
     tokenized_text = tokenizer.tokenize(text)
     if len(tokenized_text) <= max_length:
         return tokenizer.convert_tokens_to_string(tokenized_text)
@@ -222,17 +222,23 @@ def create_batches(sentences, batch_size):
 
 
 
-def sort_and_reorder(tokenizer, list1, list_of_lists):
-    # Tokenize all lines in list1
-    tokenized_list1 = [tokenizer(line) for line in list1]
-
-    # Create a list of indices based on the sorted order by length of tokenized_list1
-    sorted_indices = sorted(range(len(tokenized_list1)), key=lambda i: len(tokenized_list1[i]))
-
+def sort_and_reorder(tokenizer, list1, list_of_lists): # Sort and reorder the list of sentences based on the length of tokenized sentences
+    
+    # Zip together index and length of each tokenized sentence
+    indexed_lengths = [(i, len(tokenizer.encode(lines))) for i, lines in enumerate(list1)]
+    
+    # Sort the zip based on the length of tokenized sentences
+    indexed_lengths.sort(key=lambda x: x[1])
+    
+    # Extract the sorted indices
+    sorted_indices = [i for i, _ in indexed_lengths]
+    
     # Reorder list1 based on the sorted indices
     sorted_list1 = [list1[i] for i in sorted_indices]
-
+    
     # Reorder each list in list_of_lists based on the sorted indices
     sorted_list_of_lists = [[lst[i] for i in sorted_indices] for lst in list_of_lists]
-
+    
     return sorted_list1, sorted_list_of_lists
+
+

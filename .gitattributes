@@ -4,3 +4,6 @@
 *.code filter=lfs diff=lfs merge=lfs -text
 *.original filter=lfs diff=lfs merge=lfs -text
 *.bin filter=lfs diff=lfs merge=lfs -text
+*.question filter=lfs diff=lfs merge=lfs -text
+*.comment filter=lfs diff=lfs merge=lfs -text
+*.data filter=lfs diff=lfs merge=lfs -text
